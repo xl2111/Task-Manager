@@ -1,0 +1,13 @@
+@use './reset';
+@use './variables' as *;
+@use './mixins' as *;
+
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  color: $text-primary;
+  background-color: $background;
+}
+
+#root {
+  min-height: 100vh;
+}

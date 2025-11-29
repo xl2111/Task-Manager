@@ -1,0 +1,370 @@
+// styles/_mixins.scss
+
+@use './variables' as *;
+
+// ============================================
+// ФЛЕКСБОКС МІКСІНИ (Flexbox Mixins)
+// ============================================
+
+// Центрування по обох осях
+@mixin flex-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+// Флекс між елементами (кнопки по краях)
+@mixin flex-between {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+// Флекс колонка з вирівнюванням
+@mixin flex-column {
+  display: flex;
+  flex-direction: column;
+}
+
+// Флекс з gap (відступ між елементами)
+@mixin flex-gap($gap: 16px) {
+  display: flex;
+  gap: $gap;
+}
+
+
+// ============================================
+// КАРТКИ ТА КОНТЕЙНЕРИ (Cards & Containers)
+// ============================================
+
+// Базова картка (для TaskCard, форм)
+@mixin card {
+  background: $surface;
+  border: 1px solid $border;
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: $shadow-md;
+  transition: all 0.2s ease;
+  
+  &:hover {
+    box-shadow: $shadow-lg;
+  }
+}
+
+// Контейнер з обмеженою шириною
+@mixin container($max-width: 1200px) {
+  max-width: $max-width;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+
+// ============================================
+// КНОПКИ (Buttons)
+// ============================================
+
+// Базова кнопка
+@mixin button-base {
+  padding: 10px 20px;
+  border-radius: 8px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  border: none;
+  
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+}
+
+// Primary кнопка (основна дія)
+@mixin button-primary {
+  @include button-base;
+  background: $primary;
+  color: white;
+  
+  &:hover:not(:disabled) {
+    background: $primary-dark;
+  }
+  
+  &:active:not(:disabled) {
+    transform: scale(0.98);
+  }
+}
+
+// Secondary кнопка (другорядна дія)
+@mixin button-secondary {
+  @include button-base;
+  background: transparent;
+  color: $text-primary;
+  border: 1px solid $border;
+  
+  &:hover:not(:disabled) {
+    background: $background;
+    border-color: $border-dark;
+  }
+}
+
+// Danger кнопка (видалення)
+@mixin button-danger {
+  @include button-base;
+  background: $error;
+  color: white;
+  
+  &:hover:not(:disabled) {
+    background: darken($error, 10%);
+  }
+}
+
+// Іконка кнопка (маленька, квадратна)
+@mixin button-icon {
+  @include flex-center;
+  width: 36px;
+  height: 36px;
+  border-radius: 8px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  
+  &:hover {
+    background: $background;
+  }
+}
+
+
+// ============================================
+// ІНПУТИ ТА ФОРМИ (Inputs & Forms)
+// ============================================
+
+// Базовий інпут
+@mixin input-base {
+  padding: 12px 16px;
+  border: 1px solid $border;
+  border-radius: 8px;
+  font-size: 14px;
+  transition: all 0.2s ease;
+  width: 100%;
+  
+  &:focus {
+    outline: none;
+    border-color: $primary;
+    box-shadow: 0 0 0 3px rgba($primary, 0.1);
+  }
+  
+  &::placeholder {
+    color: $text-muted;
+  }
+  
+  &:disabled {
+    background: $background;
+    cursor: not-allowed;
+  }
+}
+
+// Textarea
+@mixin textarea {
+  @include input-base;
+  min-height: 100px;
+  resize: vertical;
+  font-family: inherit;
+}
+
+// Select
+@mixin select {
+  @include input-base;
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg width='12' height='8' viewBox='0 0 12 8' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1L6 6L11 1' stroke='%2364748b' stroke-width='2' stroke-linecap='round'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 12px center;
+  padding-right: 40px;
+  cursor: pointer;
+}
+
+
+// ============================================
+// БЕЙДЖІ ТА ТЕГИ (Badges & Tags)
+// ============================================
+
+// Базовий бейдж
+@mixin badge($bg-color, $text-color) {
+  display: inline-flex;
+  align-items: center;
+  padding: 4px 12px;
+  border-radius: 12px;
+  font-size: 12px;
+  font-weight: 500;
+  background: $bg-color;
+  color: $text-color;
+}
+
+// Бейдж пріоритету
+@mixin priority-badge($priority) {
+  @if $priority == 'high' {
+    @include badge($priority-high-bg, $priority-high);
+  } @else if $priority == 'medium' {
+    @include badge($priority-medium-bg, $priority-medium);
+  } @else if $priority == 'low' {
+    @include badge($priority-low-bg, $priority-low);
+  }
+}
+
+
+// ============================================
+// ТЕКСТ (Typography)
+// ============================================
+
+// Заголовок (великий)
+@mixin heading-lg {
+  font-size: 32px;
+  font-weight: 700;
+  color: $text-primary;
+  line-height: 1.2;
+}
+
+// Заголовок (середній)
+@mixin heading-md {
+  font-size: 24px;
+  font-weight: 600;
+  color: $text-primary;
+  line-height: 1.3;
+}
+
+// Заголовок (малий)
+@mixin heading-sm {
+  font-size: 18px;
+  font-weight: 600;
+  color: $text-primary;
+  line-height: 1.4;
+}
+
+// Обрізати текст з трьома крапками
+@mixin text-ellipsis {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+// Обмежити кількість рядків
+@mixin line-clamp($lines: 2) {
+  display: -webkit-box;
+  -webkit-line-clamp: $lines;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+
+// ============================================
+// АНІМАЦІЇ (Animations)
+// ============================================
+
+// Плавна поява
+@mixin fade-in {
+  animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+// Ховер ефект для карток
+@mixin hover-lift {
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: $shadow-lg;
+  }
+}
+
+
+// ============================================
+// RESPONSIVE (Адаптивність)
+// ============================================
+
+// Медіа-запити (Mobile-first підхід)
+@mixin mobile {
+  @media (max-width: 639px) {
+    @content;
+  }
+}
+
+@mixin tablet {
+  @media (min-width: 640px) {
+    @content;
+  }
+}
+
+@mixin desktop {
+  @media (min-width: 1024px) {
+    @content;
+  }
+}
+
+@mixin large-desktop {
+  @media (min-width: 1280px) {
+    @content;
+  }
+}
+
+
+// ============================================
+// УТИЛІТИ (Utilities)
+// ============================================
+
+// Приховати скролбар
+@mixin hide-scrollbar {
+  scrollbar-width: none; // Firefox
+  -ms-overflow-style: none; // IE/Edge
+  
+  &::-webkit-scrollbar {
+    display: none; // Chrome/Safari
+  }
+}
+
+// Кастомний скролбар
+@mixin custom-scrollbar {
+  &::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+  
+  &::-webkit-scrollbar-track {
+    background: $background;
+    border-radius: 4px;
+  }
+  
+  &::-webkit-scrollbar-thumb {
+    background: $border-dark;
+    border-radius: 4px;
+    
+    &:hover {
+      background: $text-secondary;
+    }
+  }
+}
+
+// Абсолютне центрування
+@mixin absolute-center {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+// Повністю заповнити батьківський елемент
+@mixin fill-parent {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}

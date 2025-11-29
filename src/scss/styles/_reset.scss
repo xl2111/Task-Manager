@@ -1,0 +1,106 @@
+// 1. Використовуємо більш інтуїтивну модель box-sizing
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+// 2. Прибираємо стандартні margin та padding
+* {
+  margin: 0;
+  padding: 0;
+}
+
+// 3. Дозволяємо використовувати висоту у відсотках
+html,
+body {
+  height: 100%;
+}
+
+// 4. Покращуємо читабельність тексту та рендеринг шрифтів
+body {
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+// 5. Покращуємо стандартну поведінку медіа-елементів
+img,
+picture,
+video,
+canvas,
+svg {
+  display: block;
+  max-width: 100%;
+}
+
+// 6. Прибираємо вбудовані стилі типографіки для форм
+input,
+button,
+textarea,
+select {
+  font: inherit;
+}
+
+// 7. Уникаємо переповнення тексту
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  overflow-wrap: break-word;
+}
+
+// 8. Прибираємо стилі списків
+ul,
+ol {
+  list-style: none;
+}
+
+// 9. Прибираємо стандартні стилі кнопок
+button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  
+  &:disabled {
+    cursor: not-allowed;
+    opacity: 0.6;
+  }
+}
+
+// 10. Прибираємо стандартні стилі посилань
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+// 11. Створюємо кореневий stacking context (для React додатків)
+#root {
+  isolation: isolate;
+  min-height: 100%;
+}
+
+// 12. Прибираємо стандартні стилі fieldset
+fieldset {
+  border: none;
+}
+
+// 13. Покращуємо стандартні стилі таблиць
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+// 14. Дозволяємо змінювати розмір textarea тільки вертикально
+textarea {
+  resize: vertical;
+}
+
+// 15. Покращуємо стилі фокусу для доступності
+:focus-visible {
+  outline: 2px solid currentColor;
+  outline-offset: 2px;
+}
